@@ -23,6 +23,8 @@ class Program
 
     static void command_line_handler(string[] args, TournamentData tournamentData)
     {
+        var persistence_manager = new PersistenceManager();
+        
         if(args.Length > 0 && args[0] == "new")
         {
            var spiel_1 = new Spiel("Spiel 1 wurde erstellt");
@@ -31,9 +33,15 @@ class Program
            tournamentData.spiele.Add(spiel_1);
            tournamentData.mannschaften.Add(manschaft_1); 
 
-           var persistence_manager = new PersistenceManager();
+           
 
            persistence_manager.saveTournament(tournamentData);
+        }
+
+        if(args.Length > 0 && args[1] == "print")
+        {
+            
+            Console.WriteLine(persistence_manager.loadTournament());
         }
       
         

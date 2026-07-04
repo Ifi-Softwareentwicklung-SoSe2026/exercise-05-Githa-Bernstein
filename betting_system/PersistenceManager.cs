@@ -12,6 +12,12 @@ class PersistenceManager
 
     }
 
+    public string loadTournament()
+    {
+        string json = File.ReadAllText("Data.json");
+        return json;
+    }
+
   
 }
 
