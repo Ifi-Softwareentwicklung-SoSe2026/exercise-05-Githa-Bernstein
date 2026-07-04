@@ -5,6 +5,8 @@ class Program
     {
         TournamentData tournament_data = TournamentData_Initialisierer();
         command_line_handler(args,tournament_data);
+     
+        
         
     }
 

@@ -5,8 +5,11 @@ class PersistenceManager
 {
     public void saveTournament(TournamentData data)
     {
+      
         var jsonString = JsonSerializer.Serialize(data);
         File.WriteAllText("Data.json", jsonString);
+        
+
     }
 
   
@@ -20,8 +23,8 @@ class TournamentData
         spiele = spiel_liste;
         mannschaften = mannschafts_liste;
     }
-    public List<Spiel> spiele;
-    public List<Mannschaft> mannschaften;
+    public List<Spiel> spiele{get;set;}
+    public List<Mannschaft> mannschaften{get;set;}
 }
 
 
