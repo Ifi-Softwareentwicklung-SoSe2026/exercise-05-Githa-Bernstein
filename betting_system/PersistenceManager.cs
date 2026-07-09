@@ -12,10 +12,15 @@ class PersistenceManager
 
     }
 
-    public string loadTournament()
+    public TournamentData? loadTournament()
     {
-        string json = File.ReadAllText("Data.json");
-        return json;
+        
+        string jsonContent = File.ReadAllText("Data.json");
+        
+        TournamentData? tournamentData = JsonSerializer.Deserialize<TournamentData>(jsonContent);
+       
+        return tournamentData;
+        
     }
 
   
@@ -24,10 +29,10 @@ class PersistenceManager
 
 class TournamentData
 {
-    public TournamentData(List<Spiel> spiel_liste, List<Mannschaft> mannschafts_liste)
+    public TournamentData(List<Spiel> spiele, List<Mannschaft> mannschaften)
     {
-        spiele = spiel_liste;
-        mannschaften = mannschafts_liste;
+        this.spiele = spiele;
+        this.mannschaften = mannschaften;
     }
     public List<Spiel> spiele{get;set;}
     public List<Mannschaft> mannschaften{get;set;}

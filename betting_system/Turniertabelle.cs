@@ -2,12 +2,17 @@ using System.Security.Cryptography.X509Certificates;
 
 class Spiel {
 
-    public Spiel(string name)
+    public Spiel(string id)
     {
-        Console.WriteLine(name);
-        Name = name;
+        Console.WriteLine(id);
+        ID = id;
     }
-    public string Name{get;set;}
+    public string ID{get;set;}
+        
+    public Mannschaft? homeTeam{get;set;}
+    public Mannschaft? awayTeam{get;set;}
+    public DateTime? dateTime{get;set;}
+    public string? result{get;set;}
     
 }
 

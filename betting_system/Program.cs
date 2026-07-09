@@ -41,7 +41,21 @@ class Program
         if(args.Length > 0 && args[1] == "print")
         {
             
-            Console.WriteLine(persistence_manager.loadTournament());
+            try{
+            
+               
+                tournamentData = persistence_manager.loadTournament();
+                
+               Console.WriteLine(tournamentData.spiele[0]);
+
+
+            }
+            catch
+            {
+                Console.WriteLine("Nicht möglich");
+            }
+
+            
         }
       
         
