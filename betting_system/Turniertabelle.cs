@@ -6,10 +6,10 @@ class Spiel {
     
     public required string ID{get;set;}
         
-    public Mannschaft? homeTeam{get;set;}
-    public Mannschaft? awayTeam{get;set;}
-    public DateTime? dateTime{get;set;}
-    public string? result{get;set;}
+    public required Mannschaft HomeTeam{get;set;}
+    public required Mannschaft AwayTeam{get;set;}
+    public DateTime DateTime{get;set;}
+    
     
 }
 

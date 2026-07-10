@@ -4,39 +4,70 @@ class Program
     static void Main(string[]? args)
     {
         TournamentData tournament_data = TournamentData_Initialisierer();
-        command_line_handler(args,tournament_data);
-     
+        var persistence_manager = new PersistenceManager();
+        Command_line_handler(args,tournament_data, persistence_manager);
+    
         
-        
+    }
+    static TournamentData Beispiel_Generator(TournamentData tournamentData)
+    {
+        //Erstellung Mannschaften
+        var mannschaft_1 = new Mannschaft{Name = "Bayern"};
+        var mannschaft_2 = new Mannschaft{Name = "Baden Württemberg"};
+        var mannschaft_3 = new Mannschaft{Name = "Nordrhein Westfalen"};
+        var mannschaft_4 = new Mannschaft{Name = "Niedersachsen"};
+
+        var spiel_1 = new Spiel{
+            ID = "Bayern vs. BaWü", 
+            HomeTeam = mannschaft_1,
+            AwayTeam = mannschaft_2};
+
+        var gruppe_1 = new Gruppe{Name = "Bundesländer", Teams = new List<Mannschaft> ()};
+        gruppe_1.addTeam(mannschaft_1);
+        gruppe_1.addTeam(mannschaft_2);
+        gruppe_1.addTeam(mannschaft_3);
+        gruppe_1.addTeam(mannschaft_4);
+
+        tournamentData.Mannschaften.Add(mannschaft_1);
+        tournamentData.Mannschaften.Add(mannschaft_2);
+        tournamentData.Spiele.Add(spiel_1);
+        tournamentData.Gruppen.Add(gruppe_1);
+
+        return tournamentData;
+
+
     }
 
     static TournamentData TournamentData_Initialisierer()
     {
         var spiele = new List<Spiel>();
-        var mannschafte = new List<Mannschaft>();
-        var tournament_data = new TournamentData(spiele, mannschafte);
+        var mannschaften = new List<Mannschaft>();
+        var gruppen = new List<Gruppe>();
+
+        var tournament_data = new TournamentData{
+            Spiele = spiele,
+            Mannschaften = mannschaften, 
+            Gruppen = gruppen
+        };
+
         return tournament_data;
 
 
     }
 
 
-    static void command_line_handler(string[]? args, TournamentData tournamentData)
+    static void Command_line_handler(string[]? args, TournamentData tournamentData, PersistenceManager persistence_manager)
     {
-        var persistence_manager = new PersistenceManager();
         
-        if(args.Length > 0)
+        
+        
+        if(args?.Length > 0)
         {
+            
+            
             if(args.Contains("new")){
-                var spiel_1 = new Spiel{ID = "Spiel 1 wurde erstellt"};
-                var manschaft_1 = new Mannschaft{Name = "Mannschaft 1 wurde erstellt"};
-
-                tournamentData.spiele.Add(spiel_1);
-                tournamentData.mannschaften.Add(manschaft_1); 
-
-           
-
-                persistence_manager.saveTournament(tournamentData);
+                TournamentData tournament_Data = Beispiel_Generator(tournamentData);
+                persistence_manager.saveTournament(tournament_Data);
             }
         
 
@@ -45,10 +76,10 @@ class Program
             
                 try{
             
-               
-                    tournamentData = persistence_manager.loadTournament();
+                    
+                    tournamentData = persistence_manager?.loadTournament();
                 
-                    Console.WriteLine(tournamentData.spiele[0]);
+                    Console.WriteLine($"Spiel: {tournamentData?.Spiele[0].HomeTeam.Name} vs. {tournamentData?.Spiele[0].AwayTeam.Name}");
 
 
                 }
@@ -62,22 +93,16 @@ class Program
         }
         else
         {
-            var spiel_1 = new Spiel{ID = "Spiel 1 wurde erstellt"};
-            var manschaft_1 = new Mannschaft{Name = "Mannschaft 1 wurde erstellt"};
+            TournamentData tournament_Data = Beispiel_Generator(tournamentData);
+            persistence_manager.saveTournament(tournament_Data);
 
-            tournamentData.spiele.Add(spiel_1);
-            
-            tournamentData.mannschaften.Add(manschaft_1); 
-
-
-            persistence_manager.saveTournament(tournamentData);
 
             try{
             
                
-                tournamentData = persistence_manager.loadTournament();
+                tournamentData = persistence_manager?.loadTournament();
                 
-                Console.WriteLine(tournamentData.spiele[0]);
+                Console.WriteLine(tournamentData?.Spiele[0].AwayTeam.Name);
 
 
             }
