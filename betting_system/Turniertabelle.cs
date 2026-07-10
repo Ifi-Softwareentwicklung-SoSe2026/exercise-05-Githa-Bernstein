@@ -1,13 +1,10 @@
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 
 class Spiel {
 
-    public Spiel(string id)
-    {
-        Console.WriteLine(id);
-        ID = id;
-    }
-    public string ID{get;set;}
+    
+    public required string ID{get;set;}
         
     public Mannschaft? homeTeam{get;set;}
     public Mannschaft? awayTeam{get;set;}
@@ -17,10 +14,18 @@ class Spiel {
 }
 
 class Mannschaft {
-    public Mannschaft(string name)
+
+    public required string Name{get;set;}
+}
+
+class Gruppe {
+    public required string Name{get;set;}
+    public required List<Mannschaft> Teams{get;set;}
+
+    public void addTeam(Mannschaft team)
     {
-        Console.WriteLine(name);
-        Name = name;
+        Teams.Add(team);
     }
-    public string Name{get;set;}
+  
+    
 }

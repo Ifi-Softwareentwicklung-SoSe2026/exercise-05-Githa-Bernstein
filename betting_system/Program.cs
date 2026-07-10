@@ -1,7 +1,7 @@
 ﻿
 class Program
 {
-    static void Main(string[] args)
+    static void Main(string[]? args)
     {
         TournamentData tournament_data = TournamentData_Initialisierer();
         command_line_handler(args,tournament_data);
@@ -21,32 +21,63 @@ class Program
     }
 
 
-    static void command_line_handler(string[] args, TournamentData tournamentData)
+    static void command_line_handler(string[]? args, TournamentData tournamentData)
     {
         var persistence_manager = new PersistenceManager();
         
-        if(args.Length > 0 && args[0] == "new")
+        if(args.Length > 0)
         {
-           var spiel_1 = new Spiel("Spiel 1 wurde erstellt");
-           var manschaft_1 = new Mannschaft("Mannschaft 1 wurde erstellt");
+            if(args.Contains("new")){
+                var spiel_1 = new Spiel{ID = "Spiel 1 wurde erstellt"};
+                var manschaft_1 = new Mannschaft{Name = "Mannschaft 1 wurde erstellt"};
 
-           tournamentData.spiele.Add(spiel_1);
-           tournamentData.mannschaften.Add(manschaft_1); 
+                tournamentData.spiele.Add(spiel_1);
+                tournamentData.mannschaften.Add(manschaft_1); 
 
            
 
-           persistence_manager.saveTournament(tournamentData);
-        }
+                persistence_manager.saveTournament(tournamentData);
+            }
+        
 
-        if(args.Length > 0 && args[1] == "print")
-        {
+            if(args.Contains("print"))
+            {
             
+                try{
+            
+               
+                    tournamentData = persistence_manager.loadTournament();
+                
+                    Console.WriteLine(tournamentData.spiele[0]);
+
+
+                }
+                catch
+                {
+                    Console.WriteLine("Nicht möglich");
+                }
+
+            }
+
+        }
+        else
+        {
+            var spiel_1 = new Spiel{ID = "Spiel 1 wurde erstellt"};
+            var manschaft_1 = new Mannschaft{Name = "Mannschaft 1 wurde erstellt"};
+
+            tournamentData.spiele.Add(spiel_1);
+            
+            tournamentData.mannschaften.Add(manschaft_1); 
+
+
+            persistence_manager.saveTournament(tournamentData);
+
             try{
             
                
                 tournamentData = persistence_manager.loadTournament();
                 
-               Console.WriteLine(tournamentData.spiele[0]);
+                Console.WriteLine(tournamentData.spiele[0]);
 
 
             }
@@ -54,7 +85,6 @@ class Program
             {
                 Console.WriteLine("Nicht möglich");
             }
-
             
         }
       
