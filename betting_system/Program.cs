@@ -77,7 +77,7 @@ class Program
                 uint counter = 0;
                 foreach(Spiel spiel in tournamentData.Spiele)
                 {
-                    Console.WriteLine($"Spiel{counter + 1}: {spiel.HomeTeam.Name} vs. {tournamentData?.Spiele[0].AwayTeam.Name}");
+                    Console.WriteLine($"Spiel{counter + 1}: {spiel.HomeTeam.Name} vs. {spiel.AwayTeam.Name}");
                 }
             }
 
@@ -92,7 +92,7 @@ class Program
             uint counter = 0;
             foreach(Spiel spiel in tournamentData.Spiele)
             {
-                Console.WriteLine($"Spiel{counter + 1}: {spiel.HomeTeam.Name} vs. {tournamentData?.Spiele[0].AwayTeam.Name}");
+                Console.WriteLine($"Spiel{counter + 1}: {spiel.HomeTeam.Name} vs. {spiel.AwayTeam.Name}");
             }
             
             
