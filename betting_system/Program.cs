@@ -70,24 +70,15 @@ class Program
                 persistence_manager.saveTournament(tournament_Data);
             }
         
-
             if(args.Contains("print"))
-            {
-            
-                try{
-            
-                    
-                    tournamentData = persistence_manager?.loadTournament();
-                
-                    Console.WriteLine($"Spiel: {tournamentData?.Spiele[0].HomeTeam.Name} vs. {tournamentData?.Spiele[0].AwayTeam.Name}");
+            {      
+                tournamentData = persistence_manager.loadTournament();
 
-
-                }
-                catch
+                uint counter = 0;
+                foreach(Spiel spiel in tournamentData.Spiele)
                 {
-                    Console.WriteLine("Nicht möglich");
+                    Console.WriteLine($"Spiel{counter + 1}: {spiel.HomeTeam.Name} vs. {tournamentData?.Spiele[0].AwayTeam.Name}");
                 }
-
             }
 
         }
@@ -95,21 +86,15 @@ class Program
         {
             TournamentData tournament_Data = Beispiel_Generator(tournamentData);
             persistence_manager.saveTournament(tournament_Data);
-
-
-            try{
             
-               
-                tournamentData = persistence_manager?.loadTournament();
-                
-                Console.WriteLine(tournamentData?.Spiele[0].AwayTeam.Name);
+            tournamentData = persistence_manager.loadTournament();
 
-
-            }
-            catch
+            uint counter = 0;
+            foreach(Spiel spiel in tournamentData.Spiele)
             {
-                Console.WriteLine("Nicht möglich");
+                Console.WriteLine($"Spiel{counter + 1}: {spiel.HomeTeam.Name} vs. {tournamentData?.Spiele[0].AwayTeam.Name}");
             }
+            
             
         }
       

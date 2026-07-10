@@ -12,32 +12,13 @@ class PersistenceManager
 
     }
 
-    public TournamentData? loadTournament()
+    public TournamentData loadTournament()
     {
         
         string jsonContent = File.ReadAllText("Data.json");
-        {
         
-        if (string.IsNullOrWhiteSpace(jsonContent))
-        {
-            var spiele = new List<Spiel>();
-            var mannschaften = new List<Mannschaft>();
-            var gruppen = new List<Gruppe>();
-
-            var empty_tournament_data = new TournamentData{
-            Spiele = spiele,
-            Mannschaften = mannschaften, 
-            Gruppen = gruppen};
-
-            return empty_tournament_data;
-        };
-        
-        
-        TournamentData tournamentData = JsonSerializer.Deserialize<TournamentData>(jsonContent);
-       
-        return tournamentData;
-        }
-        
+        var data = JsonSerializer.Deserialize<TournamentData>(jsonContent);
+        return  data ?? new TournamentData{Spiele = new(), Mannschaften = new(), Gruppen = new()};  
     }
 
   
